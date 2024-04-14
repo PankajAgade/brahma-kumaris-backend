@@ -13,7 +13,7 @@ exports.get_ticket = asyncHandler(async (req, res, next) => {
         } else if(page) {
             const fromRange = (limit * page) - limit;
             const toRange   = (limit * page) - 1;
-            ticketquery = ticketquery.range(fromRange, toRange);
+            ticketquery = ticketquery.range(fromRange, toRange).order("created_at", {ascending: false});
         }
         
         const ticketQueryResponse = await ticketquery;
