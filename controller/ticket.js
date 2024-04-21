@@ -33,10 +33,11 @@ exports.get_ticket = asyncHandler(async (req, res, next) => {
 });
 
 exports.create_ticket = asyncHandler(async (req, res, next) => {
-    const { name, email, mobile, message } = req.body;
-    if (name && email && mobile && message) {
+    
+    const { name, email, mobile, message, city, state, queryType} = req.body;
+    if (name && email && mobile && message && city && state && queryType) {
         try {
-            const createTicketResponse = await supabase.from("ticket").insert({name, email, mobile, message}).select("*").maybeSingle();
+            const createTicketResponse = await supabase.from("ticket").insert({name, email, mobile, message, city, state, queryType}).select("*").maybeSingle();
             if (createTicketResponse?.data) {
                 res.status(200).json(createTicketResponse?.data);
             } else {
